@@ -19,3 +19,23 @@
     <artifactId>spring-boot-starter-actuator</artifactId>
 </dependency>
 ```
+
+* 프로그래밍 방식으로 클라이언트 api를 활용가능
+```java
+    private final DiscoveryClient discoveryClient;
+    public ClientController(DiscoveryClient discoveryClient) {
+        this.discoveryClient = discoveryClient;
+    }
+    // ...
+    @GetMapping("/ping")
+    public List<ServiceInstance> ping(){
+        List<ServiceInstance> instances = discoveryClient.getInstances("CLIENT-SERVICE");
+
+        log.info("INSTANCES : count={}", instances.size());
+        instances.stream().forEach(it -> log.info("INSTANCES id={}, port={}", it.getServiceId(), it.getPort()));
+
+        return instances;
+    }
+```
+
+
