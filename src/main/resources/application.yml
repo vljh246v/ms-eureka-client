@@ -7,3 +7,8 @@ eureka:
   client:
     serviceUrl:
       defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
+
+endpoints:
+  shutdown:
+    enabled: true
+    sensitive: false
